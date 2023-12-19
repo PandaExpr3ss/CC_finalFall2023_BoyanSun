@@ -1,21 +1,15 @@
-let heartmovex = 0; //need to change
-let heartmovey = 0; //need to change
-let d = 0;
-let v;
-let strikemode = false;
-let angle = 0;
-let movev = 0;
-let hooked = false;
+let halimovex = 0; //need to change
+let halimovey = 0; //need to change
 
-class heart{
+class halibut{
 
     constructor(x, y, img, flip){
         this.x = x;
         this.y = y;
         this.img = img;
         this.flip = flip;
-        this.heartmovex = heartmovex; //need to change
-        this.heartmovey = heartmovey; //need to change
+        this.halimovex = halimovex; //need to change
+        this.halimovey = halimovey; //need to change
         this.d = d;
         this.v = v;
         this.strikemode = strikemode;
@@ -31,7 +25,7 @@ class heart{
         //translate(cusMap(this.x, 'x'), cusMap(this.y, 'y')); //commented out to solve window resize hooked fish displacement issue
         scale(this.flip, 1);
         rotate(this.angle);
-        image(this.img, 0, 0, cusMap(200, 'x'), cusMap(145, 'y')); //need to change
+        image(this.img, 0, 0, cusMap(300, 'x'), cusMap(217.5, 'y')); //need to change
         pop();
         imageMode(CORNER);
     }
@@ -39,38 +33,38 @@ class heart{
     move(){
         if(!this.strikemode){ //moves need to change
             if(frameCount % 200 == 0){
-                this.heartmovex = random(-1, 1);
-                if(this.y <= cusMap(400, 'y')){
-                    this.heartmovey = random(1, 3);
-                    this.movev = createVector(this.heartmovex, this.heartmovey);
+                this.halimovex = random(-2, 2);
+                if(this.y <= cusMap(1100, 'y')){
+                    this.halimovey = random(1, 3);
+                    this.movev = createVector(this.halimovex, this.halimovey);
                     this.angle = findHeadingAngle(this.movev);
                 }
-                else if(this.y >= cusMap(800, 'y')){
-                    this.heartmovey = random(-3, -1);
-                    this.movev = createVector(this.heartmovex, this.heartmovey);
+                else if(this.y >= cusMap(1500, 'y')){
+                    this.halimovey = random(-3, -1);
+                    this.movev = createVector(this.halimovex, this.halimovey);
                     this.angle = findHeadingAngle(this.movev);
                 }
                 else{
-                    this.heartmovey = random(-0.3, 0.3);
-                    this.movev = createVector(this.heartmovex, this.heartmovey);
+                    this.halimovey = random(-0.6, 0.6);
+                    this.movev = createVector(this.halimovex, this.halimovey);
                     this.angle = findHeadingAngle(this.movev);
                     while(abs(this.angle) > PI/8){
-                        this.heartmovex = random(-1, 1);
-                        this.heartmovey = random(-0.3, 0.3);
-                        this.movev = createVector(this.heartmovex, this.heartmovey);
+                        this.halimovex = random(-2, 2);
+                        this.halimovey = random(-0.6, 0.6);
+                        this.movev = createVector(this.halimovex, this.halimovey);
                         this.angle = findHeadingAngle(this.movev);
                     }
                 }
-                if(this.heartmovex < 0){
+                if(this.halimovex < 0){
                     this.flip = 1;
                 }
                 else{
                     this.flip = -1;
                 }
             }
-            //print(this.heartmove);
-            this.x += this.heartmovex;
-            this.y += this.heartmovey;
+
+            this.x += this.halimovex;
+            this.y += this.halimovey;
             if(this.x < -(cusMap(800/9*16, 'x'))){
                 this.x += cusMap(800/9*16*3, 'x');
             }
@@ -121,7 +115,7 @@ class heart{
             else{
                 this.strikemode = false;
                 this.angle = findHeadingAngle(this.movev);
-                if(this.heartmovex < 0){ //need to change
+                if(this.halimovex < 0){ //need to change
                     this.flip = 1;
                 }
                 else{
@@ -134,13 +128,13 @@ class heart{
             this.x = cusMap(408, 'x');
             //print(this.d);
             this.angle = PI/2;
-            fishtype = 'heart'; //need to change
+            fishtype = 'halibut'; //need to change
             if(liney <= 100){
                 scrn = 'hooked'
             }
         }
         else if(this.hooked && reset){
-            this.y = random(cusMap(500, 'y'), cusMap(750, 'y'));
+            this.y = random(cusMap(800, 'y'), cusMap(1050, 'y'));
             this.x = random(-(cusMap(800/9*16, 'x')), 0);
             this.hooked = false;
             reset = false;
@@ -149,7 +143,7 @@ class heart{
         else{
             this.strikemode = false;
             this.angle = findHeadingAngle(this.movev);
-            if(this.heartmovex < 0){ //need to change
+            if(this.halimovex < 0){ //need to change
                 this.flip = 1;
             }
             else{
@@ -159,23 +153,4 @@ class heart{
         
     }
 
-}
-
-function findVector(x1, y1, x2, y2){
-    vec = createVector(x1, y1);
-    vec.sub(x2, y2);
-    vec.div(sqrt(sq(vec.x)+sq(vec.y)));
-    return vec;
-}
-
-function findHeadingAngle(vec){
-    if(vec.x <= 0){
-        ang = atan(vec.y/vec.x);
-        return ang;
-    }
-    else{
-        ang = atan(vec.y/vec.x);
-        return -ang;
-    }
-    
 }

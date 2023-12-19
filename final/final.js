@@ -15,16 +15,50 @@ let boatimg, panda;
 let btspn, bf, bb;
 let boatspeed;
 let heartimg;
+let greentimg;
+let herrimg;
+let haliimg;
+let kirimg;
+let peaimg;
+let sharkimg;
 let hearts;
+let greentotems;
+let herrings;
+let halibuts;
+let kirbys;
+let peacocks;
+let sharks;
 let heartx, hearty;
+let greenx, greeny;
+let herrx, herry;
+let halix, haliy;
+let kirx, kiry;
+let peax, peay;
+let sharkx, sharky;
 let smallx1, smallx2, smally1, smally2;
+let midy1, midy2;
+let lary1, lary2;
+let hugy1, hugy2;
 let heartflip;
+let greenflip;
+let herrflip;
+let haliflip;
+let kirflip;
+let peaflip;
+let sharkflip;
 let liney;
 let linedown, lineup;
 let fishtype;
 let heartmoney;
 let abandonstart;
 let reset;
+let boaty;
+let greenmoney;
+let herrmoney;
+let halimoney;
+let kirmoney;
+let peamoney;
+let sharkmoney;
 
 function preload(){
   handwriting = loadFont('MotleyForcesRegular.ttf');
@@ -43,6 +77,12 @@ function preload(){
   boatimg = loadImage('boat.png');
   panda = loadImage('panda.png');
   heartimg = loadImage('heart.png');
+  greentimg = loadImage('greentotem.png');
+  herrimg = loadImage('herring.png');
+  haliimg = loadImage('halibut.png');
+  kirimg = loadImage('kirby.png');
+  peaimg = loadImage('peacock.png');
+  sharkimg = loadImage('shark.png');
 }
 
 function setup(){
@@ -77,11 +117,12 @@ function setup(){
   bf = true;
   bb = false;
   boatspeed = 0;
+  boaty = 0;
 
   smallx1 = -(cusMap(800/9*16, 'x')); //fish
   smallx2 = 0;
 
-  heartx = [];
+  heartx = []; //hearts
   for(let i = 0; i < 12; i++){
     if(i % 4 == 0 && i != 0){
       smallx1 += cusMap(800/9*16, 'x');
@@ -118,6 +159,206 @@ function setup(){
     //print(heartflip[i]);
   }
 
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  greenx = []; //green totems
+  for(let i = 0; i < 9; i++){
+    if(i % 3 == 0 && i != 0){
+      smallx1 += cusMap(800/9*16, 'x');
+      smallx2 += cusMap(800/9*16, 'x');
+    }
+    greenx[i] = random(smallx1, smallx2);
+  }
+
+  midy1 = cusMap(800, 'y');
+  midy2 = cusMap(1050, 'y');
+
+  greeny = [];
+  for(let i = 0; i < 9; i++){
+    greeny[i] = random(midy1, midy2);
+  }
+
+  greenflip = [];
+  for(let i = 0; i < 9; i++){
+    greenflip[i] = random(0, 1);
+    if(greenflip[i] >= 0.5){
+      greenflip[i] = 1;
+    }
+    else{
+      greenflip[i] = -1;
+    }
+  }
+
+  greentotems = [];
+  for(let i = 0; i < 9; i++){
+    greentotems[i] = new greentotem(greenx[i], greeny[i], greentimg, greenflip[i]);
+  }
+
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  herrx = []; //herring
+  for(let i = 0; i < 6; i++){
+    if(i % 2 == 0 && i != 0){
+      smallx1 += cusMap(800/9*16, 'x');
+      smallx2 += cusMap(800/9*16, 'x');
+    }
+    herrx[i] = random(smallx1, smallx2);
+  }
+
+  midy1 = cusMap(800, 'y');
+  midy2 = cusMap(1050, 'y');
+
+  herry = [];
+  for(let i = 0; i < 6; i++){
+    herry[i] = random(midy1, midy2);
+  }
+
+  herrflip = [];
+  for(let i = 0; i < 6; i++){
+    herrflip[i] = random(0, 1);
+    if(herrflip[i] >= 0.5){
+      herrflip[i] = 1;
+    }
+    else{
+      herrflip[i] = -1;
+    }
+  }
+
+  herrings = [];
+  for(let i = 0; i < 6; i++){
+    herrings[i] = new herring(herrx[i], herry[i], herrimg, herrflip[i]);
+  }
+
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  peax = []; //peacock
+  for(let i = 0; i < 6; i++){
+    if(i % 2 == 0 && i != 0){
+      smallx1 += cusMap(800/9*16, 'x');
+      smallx2 += cusMap(800/9*16, 'x');
+    }
+    peax[i] = random(smallx1, smallx2);
+  }
+
+  midy1 = cusMap(800, 'y');
+  midy2 = cusMap(1050, 'y');
+
+  peay = [];
+  for(let i = 0; i < 6; i++){
+    peay[i] = random(midy1, midy2);
+  }
+
+  peaflip = [];
+  for(let i = 0; i < 6; i++){
+    peaflip[i] = random(0, 1);
+    if(peaflip[i] >= 0.5){
+      peaflip[i] = 1;
+    }
+    else{
+      peaflip[i] = -1;
+    }
+  }
+
+  peacocks = [];
+  for(let i = 0; i < 6; i++){
+    peacocks[i] = new peacock(peax[i], peay[i], peaimg, peaflip[i]);
+  }
+
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  halix = []; //halibut
+  for(let i = 0; i < 6; i++){
+    if(i % 2 == 0 && i != 0){
+      smallx1 += cusMap(800/9*16, 'x');
+      smallx2 += cusMap(800/9*16, 'x');
+    }
+    halix[i] = random(smallx1, smallx2);
+  }
+
+  lary1 = cusMap(1150, 'y');
+  lary2 = cusMap(1400, 'y');
+
+  haliy = [];
+  for(let i = 0; i < 6; i++){
+    haliy[i] = random(lary1, lary2);
+  }
+
+  haliflip = [];
+  for(let i = 0; i < 6; i++){
+    haliflip[i] = random(0, 1);
+    if(haliflip[i] >= 0.5){
+      haliflip[i] = 1;
+    }
+    else{
+      haliflip[i] = -1;
+    }
+  }
+
+  halibuts = [];
+  for(let i = 0; i < 6; i++){
+    halibuts[i] = new halibut(halix[i], haliy[i], haliimg, haliflip[i]);
+  }
+
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  kirx = []; //kirby
+  for(let i = 0; i < 3; i++){
+    if(i % 1 == 0 && i != 0){
+      smallx1 += cusMap(800/9*16, 'x');
+      smallx2 += cusMap(800/9*16, 'x');
+    }
+    kirx[i] = random(smallx1, smallx2);
+  }
+
+  lary1 = cusMap(1150, 'y');
+  lary2 = cusMap(1400, 'y');
+
+  kiry = [];
+  for(let i = 0; i < 3; i++){
+    kiry[i] = random(lary1, lary2);
+  }
+
+  kirflip = [];
+  for(let i = 0; i < 3; i++){
+    kirflip[i] = random(0, 1);
+    if(kirflip[i] >= 0.5){
+      kirflip[i] = 1;
+    }
+    else{
+      kirflip[i] = -1;
+    }
+  }
+
+  kirbys = [];
+  for(let i = 0; i < 3; i++){
+    kirbys[i] = new kirby(kirx[i], kiry[i], kirimg, kirflip[i]);
+  }
+
+  smallx1 = -(cusMap(800/9*16, 'x'));
+  smallx2 = 0;
+
+  sharkx = random(smallx1, smallx2); //shark
+
+  hugy1 = cusMap(1450, 'y');
+  hugy2 = cusMap(1700, 'y');
+
+  sharky = random(hugy1, hugy2);
+
+  sharkflip = random(0, 1);
+  if(sharkflip >= 0.5){
+    sharkflip = 1;
+  }
+  else{
+    sharkflip = -1;
+  }
+
+  sharks = new shark(sharkx, sharky, sharkimg, sharkflip);
+
   liney = 100; //line
   linemove = false;
 
@@ -127,6 +368,12 @@ function setup(){
   fishtype = '';
 
   heartmoney = 600;
+  greenmoney = 1200;
+  herrmoney = 2000;
+  halimoney = 3000;
+  kirmoney = 5000;
+  peamoney = 1500;
+  sharkmoney = 10000;
 }
 
 function start(){ //start screen
@@ -371,8 +618,9 @@ function boat(){
   imageMode(CENTER);
   strokeWeight(4);
   stroke(0);
+  boaty = (bgy1 + bgy2) / 2 - 400;
   push();
-  translate(cusMap(410, 'x'), cusMap(110, 'y'));
+  translate(cusMap(410, 'x'), cusMap(110 - boaty, 'y'));
   if(bf){
     btspn += 0.002;
   }
@@ -391,12 +639,12 @@ function boat(){
   line(0, 0, -(cusMap(100, 'x')), cusMap(100, 'y'));
   pop();
   push();
-  translate(cusMap(280, 'x'), cusMap(240, 'y'));
+  translate(cusMap(280, 'x'), cusMap(240 - boaty, 'y'));
   rotate(-btspn);
   image(panda, 0, 0, cusMap(160, 'x'), cusMap(175, 'y'));
   pop();
   push();
-  translate(cusMap(200, 'x'), cusMap(270, 'y'));
+  translate(cusMap(200, 'x'), cusMap(270 - boaty, 'y'));
   rotate(btspn);
   image(boatimg, 0, 0, cusMap(280, 'x'), cusMap(230, 'y'));
   pop();
@@ -434,8 +682,8 @@ function beforeCastStill(){ //screen before casting the bait but not moving
 }
 
 function beforeCast(){ //screen before casting the bait
-  bgy1 = 400;
-  bgy2 = 400;
+  //bgy1 = 400;
+  //bgy2 = 400;
   image(startbg, bgx1, 0, cusMap(800/9*16*4, 'x'), cusMap(800, 'y'), 0, bgy1, startbg.width, 650);
   image(startbg, bgx2, 0, cusMap(800/9*16*4, 'x'), cusMap(800, 'y'), 0, bgy2, startbg.width, 650);
   bgmove(boatspeed);
@@ -449,6 +697,18 @@ function fishStill(){
   for(let i = 0; i < 12; i++){
     hearts[i].show();
   }
+  for(let i = 0; i < 9; i++){
+    greentotems[i].show();
+  }
+  for(let i = 0; i < 6; i++){
+    herrings[i].show();
+    halibuts[i].show();
+    peacocks[i].show();
+  }
+  for(let i = 0; i < 3; i++){
+    kirbys[i].show();
+  }
+  sharks.show();
 }
 
 function fish(){
@@ -457,6 +717,30 @@ function fish(){
     hearts[i].move();
     hearts[i].strike();
   }
+  for(let i = 0; i < 9; i++){
+    greentotems[i].show();
+    greentotems[i].move();
+    greentotems[i].strike();
+  }
+  for(let i = 0; i < 6; i++){
+    herrings[i].show();
+    herrings[i].move();
+    herrings[i].strike();
+    halibuts[i].show();
+    halibuts[i].move();
+    halibuts[i].strike();
+    peacocks[i].show();
+    peacocks[i].move();
+    peacocks[i].strike();
+  }
+  for(let i = 0; i < 3; i++){
+    kirbys[i].show();
+    kirbys[i].move();
+    kirbys[i].strike();
+  }
+  sharks.show();
+  sharks.move();
+  sharks.strike();
 }
 
 function fishline(){
@@ -464,8 +748,8 @@ function fishline(){
   strokeWeight(2);
   stroke(220);
   push();
-  translate(cusMap(410, 'x'), cusMap(110, 'y'));
-  line(0, 0, 0, cusMap(liney, 'y'));
+  translate(cusMap(410, 'x'), cusMap(110 - boaty, 'y'));
+  line(0, 0, 0, cusMap(liney + boaty, 'y'));
   pop();
   push();
   translate(cusMap(408, 'x'), cusMap(liney + 119, 'y'));
@@ -483,59 +767,101 @@ function fishline(){
   if(liney <= 100){
     liney = 100;
   }
+
+  if(liney >= 500 && linedown){
+    liney = 500;
+    bgy1 += 2;
+    bgy2 += 2;
+    if(bgy1 >= 1500 && bgy2 >= 1500){
+      bgy1 = 1500;
+      bgy2 = 1500;
+    }
+  }
+
+  else if(bgy1 > 400 && bgy2 > 400 && lineup){
+    liney = 500;
+    bgy1 -= 2;
+    bgy2 -= 2;
+    if(bgy1 <= 400 & bgy2 <= 400){
+      bgy1 = 400;
+      bgy2 = 400;
+    }
+  }
   fill(0);
   //circle(cusMap(408, 'x'), cusMap(liney + 125, 'y'), 10);
 }
 
+function hookeddisplay(img, x, y, name, worth){
+  imageMode(CENTER);
+  push();
+  translate(cusMap(300, 'x'), cusMap(400, 'y'));
+  scale(-1, 1);
+  rotate(PI/2.4);
+  image(img, 0, 0, cusMap(x, 'x'), cusMap(y, 'y'));
+  pop();
+  imageMode(CORNER);
+  fill(0);
+  noStroke();
+  push();
+  translate(cusMap(950, 'x'), cusMap(200, 'y'));
+  scale(cusMap(1, 's'));
+  textAlign(CENTER);
+  textFont(handwriting, tsz);
+  text(name, 0, 0);
+  if(tl){
+    tsz += 1;
+  }
+  else if(ts){
+    tsz -= 1;
+  }
+  if(tsz >= 90 && tl){
+    tl = false;
+    ts = true;
+  }
+  else if(tsz <= 70 && ts){
+    ts = false;
+    tl = true;
+  }
+  pop();
+  push();
+  translate(cusMap(950, 'x'), cusMap(400, 'y'));
+  scale(cusMap(1, 's'));
+  textAlign(CENTER);
+  textFont(handwriting, 80);
+  text(worth, 0, 0);
+  pop();
+  push();
+  translate(cusMap(950, 'x'), cusMap(600, 'y'));
+  scale(cusMap(1, 's'));
+  textAlign(CENTER);
+  textFont(handwriting, 80);
+  text('Sell', 0, 0);
+  tw = textWidth('Sell');
+  th = textAscent('Sell');
+  pop();
+}
+
 function hookedscreen(){ //after a fish is hooked and brought to the top
   if(fishtype == 'heart'){
-    imageMode(CENTER);
-    push();
-    translate(cusMap(300, 'x'), cusMap(400, 'y'));
-    scale(-1, 1);
-    rotate(PI/2.4);
-    image(heartimg, 0, 0, cusMap(1000, 'x'), cusMap(724, 'y'));
-    pop();
-    imageMode(CORNER);
-    fill(0);
-    noStroke();
-    push();
-    translate(cusMap(950, 'x'), cusMap(200, 'y'));
-    scale(cusMap(1, 's'));
-    textAlign(CENTER);
-    textFont(handwriting, tsz);
-    text('Heart', 0, 0);
-    if(tl){
-      tsz += 1;
-    }
-    else if(ts){
-      tsz -= 1;
-    }
-    if(tsz >= 90 && tl){
-      tl = false;
-      ts = true;
-    }
-    else if(tsz <= 70 && ts){
-      ts = false;
-      tl = true;
-    }
-    pop();
-    push();
-    translate(cusMap(950, 'x'), cusMap(400, 'y'));
-    scale(cusMap(1, 's'));
-    textAlign(CENTER);
-    textFont(handwriting, 80);
-    text('$600', 0, 0);
-    pop();
-    push();
-    translate(cusMap(950, 'x'), cusMap(600, 'y'));
-    scale(cusMap(1, 's'));
-    textAlign(CENTER);
-    textFont(handwriting, 80);
-    text('Sell', 0, 0);
-    tw = textWidth('Sell');
-    th = textAscent('Sell');
-    pop();
+    hookeddisplay(heartimg, 1000, 724, 'Heart', '$600')
+  }
+  else if(fishtype == 'greentotem'){
+    hookeddisplay(greentimg, 1000, 724, 'Green Totem', '$1200')
+  }
+  else if(fishtype == 'herring'){
+    hookeddisplay(herrimg, 1000, 724, 'Herring', '$2000')
+  }
+  else if(fishtype == 'halibut'){
+    hookeddisplay(haliimg, 1000, 724, 'Halibut', '$3000')
+  }
+  else if(fishtype == 'kirby'){
+    hookeddisplay(kirimg, 1000, 724, 'Kirby', '$5000')
+  }
+  else if(fishtype == 'peacock'){
+    hookeddisplay(peaimg, 1000, 724, 'Peacock', '$1500')
+  }
+  else if(fishtype == 'shark'){
+    hookeddisplay(sharkimg, 1000, 724, 'Shark', '$10000')
   }
 }
 
@@ -547,6 +873,48 @@ function mousePressed(){
   if(mouseX > cusMap(950, 'x') - tw/2 && mouseX < cusMap(950, 'x') + tw/2 && mouseY > cusMap(600, 'y') - th && mouseY < cusMap(600, 'y') && scrn == 'hooked'){
     if(fishtype == 'heart'){
       money += heartmoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'greentotem'){
+      money += greenmoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'herring'){
+      money += herrmoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'halibut'){
+      money += halimoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'kirby'){
+      money += kirmoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'peacock'){
+      money += peamoney;
+      //hooked = false;
+      abandonstart = true;
+      reset = true;
+      scrn = 'beforeCast'
+    }
+    else if(fishtype == 'shark'){
+      money += sharkmoney;
       //hooked = false;
       abandonstart = true;
       reset = true;
