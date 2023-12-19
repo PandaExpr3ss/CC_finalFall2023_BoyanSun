@@ -59,6 +59,11 @@ let halimoney;
 let kirmoney;
 let peamoney;
 let sharkmoney;
+let fromshop;
+let midboatimg, bigboatimg;
+let boattype;
+let midpur, bigpur;
+let noten;
 
 function preload(){
   handwriting = loadFont('MotleyForcesRegular.ttf');
@@ -83,6 +88,8 @@ function preload(){
   kirimg = loadImage('kirby.png');
   peaimg = loadImage('peacock.png');
   sharkimg = loadImage('shark.png');
+  midboatimg = loadImage('midboat.png');
+  bigboatimg = loadImage('bigboat.png');
 }
 
 function setup(){
@@ -98,7 +105,7 @@ function setup(){
   ts = false;
   scrn = 'start';
 
-  stbgx1 = 0; //start backgrounf
+  stbgx1 = 0; //start background
   stbgx2 = cusMap(800/9*16*2, 'x');
 
   op = 0; //transition
@@ -374,6 +381,13 @@ function setup(){
   kirmoney = 5000;
   peamoney = 1500;
   sharkmoney = 10000;
+
+  fromshop = false;
+
+  boattype = 'small';
+  midpur = false;
+  bigpur = false;
+  noten = false;
 }
 
 function start(){ //start screen
@@ -578,8 +592,8 @@ function icons(money){ //icons on game screen
   noStroke();
   image(moneyicon, cusMap(50, 'x'), cusMap(50, 'y'), cusMap(90, 'x'), cusMap(90, 'y'));
   image(shop, cusMap(800/9*16 - 70, 'x'), cusMap(50, 'y'), cusMap(110, 'x'), cusMap(110, 'y'));
-  image(inven, cusMap(800/9*16 - 70, 'x'), cusMap(125, 'y'), cusMap(90, 'x'), cusMap(90, 'y'));
-  image(aqua, cusMap(800/9*16 - 70, 'x'), cusMap(200, 'y'), cusMap(90, 'x'), cusMap(100, 'y'));
+  //image(inven, cusMap(800/9*16 - 70, 'x'), cusMap(125, 'y'), cusMap(90, 'x'), cusMap(90, 'y'));
+  //image(aqua, cusMap(800/9*16 - 70, 'x'), cusMap(200, 'y'), cusMap(90, 'x'), cusMap(100, 'y'));
 
   fill(0);
   push();
@@ -589,6 +603,7 @@ function icons(money){ //icons on game screen
   textFont(handwriting, 35);
   text('I', 0, 0);
   pop();
+  /*
   push();
   translate(cusMap(800/9*16 - 25, 'x'), cusMap(140, 'y'));
   scale(cusMap(1, 's'));
@@ -603,6 +618,7 @@ function icons(money){ //icons on game screen
   textFont(handwriting, 35);
   text('Q', 0, 0);
   pop();
+  */
   push();
   translate(cusMap(90, 'x'), cusMap(60, 'y'));
   scale(cusMap(1, 's'));
@@ -614,7 +630,7 @@ function icons(money){ //icons on game screen
   imageMode(CORNER);
 }
 
-function boat(){
+function boat(boattype){
   imageMode(CENTER);
   strokeWeight(4);
   stroke(0);
@@ -644,9 +660,21 @@ function boat(){
   image(panda, 0, 0, cusMap(160, 'x'), cusMap(175, 'y'));
   pop();
   push();
-  translate(cusMap(200, 'x'), cusMap(270 - boaty, 'y'));
-  rotate(btspn);
-  image(boatimg, 0, 0, cusMap(280, 'x'), cusMap(230, 'y'));
+  if(boattype == 'small'){
+    translate(cusMap(200, 'x'), cusMap(270 - boaty, 'y'));
+    rotate(btspn);
+    image(boatimg, 0, 0, cusMap(280, 'x'), cusMap(230, 'y'));
+  }
+  else if(boattype == 'mid'){
+    translate(cusMap(180, 'x'), cusMap(260 - boaty, 'y'));
+    rotate(btspn);
+    image(midboatimg, 0, 0, cusMap(400, 'x'), cusMap(300, 'y'));
+  }
+  else if(boattype == 'big'){
+    translate(cusMap(140, 'x'), cusMap(240 - boaty, 'y'));
+    rotate(btspn);
+    image(bigboatimg, 0, 0, cusMap(420, 'x'), cusMap(345, 'y'));
+  }
   pop();
   imageMode(CORNER);
 }
@@ -689,7 +717,7 @@ function beforeCast(){ //screen before casting the bait
   bgmove(boatspeed);
   icons(money);
   fishline();
-  boat();
+  boat(boattype);
   fish();
 }
 
@@ -865,6 +893,119 @@ function hookedscreen(){ //after a fish is hooked and brought to the top
   }
 }
 
+function itemshop(){
+  background(255);
+  fill(0)
+  noStroke();
+  push();
+  translate(cusMap(800/9*16/2, 'x'), cusMap(80, 'y'));
+  textAlign(CENTER);
+  textFont(handwriting, 80);
+  text('Shop', 0, 0);
+  pop();
+  imageMode(CENTER);
+  image(moneyicon, cusMap(50, 'x'), cusMap(50, 'y'), cusMap(90, 'x'), cusMap(90, 'y'));
+  push();
+  translate(cusMap(90, 'x'), cusMap(60, 'y'));
+  scale(cusMap(1, 's'));
+  textAlign(LEFT);
+  textFont(handwriting, 40);
+  text(money, 0, 0);
+  pop();
+  push();
+  translate(cusMap(0, 'x'), cusMap(105, 'y'));
+  stroke(0);
+  strokeWeight(8);
+  line(0, 0, width, 0);
+  pop();
+  push();
+  translate(cusMap(0, 'x'), cusMap(336.67, 'y'));
+  stroke(0);
+  strokeWeight(8);
+  line(0, 0, width, 0);
+  pop();
+  push();
+  translate(cusMap(0, 'x'), cusMap(568.34, 'y'));
+  stroke(0);
+  strokeWeight(8);
+  line(0, 0, width, 0);
+  pop();
+  push();
+  translate(cusMap(200, 'x'), cusMap(230, 'y'));
+  image(midboatimg, 0, 0, cusMap(420, 'x'), cusMap(345, 'y'));
+  pop();
+  push();
+  translate(cusMap(200, 'x'), cusMap(450, 'y'));
+  image(bigboatimg, 0, 0, cusMap(420, 'x'), cusMap(345, 'y'));
+  pop();
+  if(!midpur){
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(180, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Speedboat', 0, 0);
+    pop();
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(230, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Speed: 50mph', 0, 0);
+    pop();
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(280, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('$10000', 0, 0);
+    pop();
+  }
+  else{
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(230, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Purchased!', 0, 0);
+    pop();
+  }
+  if(!bigpur){
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(411.67, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Yacht', 0, 0);
+    pop();
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(461.67, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Speed: 100mph', 0, 0);
+    pop();
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(511.67, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('$50000', 0, 0);
+    pop();
+  }
+  else{
+    push();
+    translate(cusMap(800/9*16/2, 'x'), cusMap(461.67, 'y'));
+    textAlign(CENTER);
+    textFont(handwriting, 50);
+    text('Purchased!', 0, 0);
+    pop();
+  }
+  push();
+  translate(cusMap(800/9*16/2, 'x'), cusMap(750, 'y'));
+  textAlign(CENTER);
+  textFont(handwriting, 50);
+  text('More Coming Soon....', 0, 0);
+  pop();
+  
+
+  imageMode(CORNER);
+  noStroke();
+}
+
 function mousePressed(){
   //used to make the text the button
   if(mouseX > cusMap(800/9*16/2, 'x') - tw/2 && mouseX < cusMap(800/9*16/2, 'x') + tw/2 && mouseY > cusMap(550, 'y') - th && mouseY < cusMap(550, 'y') && scrn == 'start'){
@@ -921,20 +1062,59 @@ function mousePressed(){
       scrn = 'beforeCast'
     }
   }
+  if(mouseY >= cusMap(105, 'y') && mouseY < cusMap(336.67, 'y') && scrn == 'shop' && !midpur){
+    if(money >= 10000){
+      money = money - 10000;
+      midpur = true;
+      boattype = 'mid';
+    }
+  }
+  if(mouseY >= cusMap(336.67, 'y') && mouseY < cusMap(568.34, 'y') && scrn == 'shop' && !bigpur){
+    if(money >= 50000){
+      money = money - 50000;
+      bigpur = true;
+      boattype = 'big'
+    }
+  }
 }
 
 function keyPressed(){
   if(key == 'a'){
-    boatspeed = -2;
+    if(boattype == 'small'){
+      boatspeed = -2;
+    }
+    else if(boattype == 'mid'){
+      boatspeed = -4;
+    }
+    else if(boattype == 'big'){
+      boatspeed = -8;
+    }
   }
   else if(key == 'd'){
-    boatspeed = 2;
+    if(boattype == 'small'){
+      boatspeed = 2;
+    }
+    else if(boattype == 'mid'){
+      boatspeed = 4;
+    }
+    else if(boattype == 'big'){
+      boatspeed = 8;
+    }
   }
   if(key == 's'){
     linedown = true;
   }
   else if(key == 'w'){
     lineup = true;
+  }
+  if(key == 'i' && scrn == 'beforeCast'){
+    scrn = 'shop'
+    abandonstart = true;
+    fromshop = false;
+  }
+  else if(key == 'i' && scrn == 'shop'){
+    fromshop = true;
+    scrn = 'beforeCast'
   }
 }
 
@@ -960,17 +1140,33 @@ function draw(){
   }
   else if(scrn == 'beforeCast'){
     if(abandonstart){
-      if(!opdone){
-        if(!ophalf){
-          hookedscreen();
+      if(fromshop){
+        if(!opdone){
+          if(!ophalf){
+            itemshop();
+          }
+          else{
+            beforeCast();
+          }
+          transition();
         }
         else{
           beforeCast();
         }
-        transition();
       }
       else{
-        beforeCast();
+        if(!opdone){
+          if(!ophalf){
+            hookedscreen();
+          }
+          else{
+            beforeCast();
+          }
+          transition();
+        }
+        else{
+          beforeCast();
+        }
       }
     }
     else{
@@ -1000,6 +1196,21 @@ function draw(){
     }
     else{
       hookedscreen();
+    }
+    fromshop = false;
+  }
+  else if(scrn == 'shop'){
+    if(opdone){
+      if(ophalf){
+        beforeCast();
+      }
+      else{
+        itemshop()
+      }
+      transitionflip();
+    }
+    else{
+      itemshop();
     }
   }
 }
